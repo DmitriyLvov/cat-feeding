@@ -101,6 +101,7 @@ const CatMeal = ({ feed }: ICatProps) => {
       >
         <div className={styles.main} onClick={selectFood}>
           <div className={styles.textField}>
+            <></>
             <p className={styles.headerDescription}>
               Сказочное заморское яство
             </p>

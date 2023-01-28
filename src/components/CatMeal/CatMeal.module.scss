@@ -34,29 +34,41 @@
 }
 
 .headerDescription {
-  padding: 0;
+  padding: 17px 0 0;
   margin: 0;
+  font: 800 18px/1.16 "Trebuchet MS", Helvetica, sans-serif;
+  color: #666;
 }
 
 .header {
   padding: 0;
   margin: 5px 0 0;
+  font: 700 48px/56px "Trebuchet MS", Helvetica, sans-serif;
 }
 
 .type {
   padding: 0;
-  margin: 0;
+  margin: -3px 0 0;
   text-align: left;
   width: fit-content;
+  font: 700 24px/28px "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.volume, .mices{
+  font: 400 14px/16px "Trebuchet MS", Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #666;
+}
+
+.volume{
+  margin-top: 15px;
 }
 
 .textField {
   width: calc(100% - 40px);
   margin-left: 40px;
   text-align: left;
-}
-
-.mices {
 }
 
 .weight {
@@ -108,6 +120,7 @@
   color: #fff;
   bottom: -34px;
   margin: 0;
+  font: 700 13px/15px "Trebuchet MS", Helvetica, sans-serif;
 }
 
 .buyHook_outOfStock {
