@@ -1,16 +1,18 @@
 {
   "files": {
-    "main.css": "/cat-feeding/static/css/main.4a8f3747.css",
+    "main.css": "/cat-feeding/static/css/main.58c84c8d.css",
     "main.js": "/cat-feeding/static/js/main.1c7ffa7f.js",
+    "static/media/TrebuchetMS.woff": "/cat-feeding/static/media/TrebuchetMS.af3cbb0e7a5aaa5aad48.woff",
+    "static/media/TrebuchetMS-Bold.woff": "/cat-feeding/static/media/TrebuchetMS-Bold.ed76e98b5ec0933d740e.woff",
     "static/media/Photo.png": "/cat-feeding/static/media/Photo.6ead120b12513b247c0f.png",
     "static/media/Exo20-Thin.woff": "/cat-feeding/static/media/Exo20-Thin.99a2d5ccf998c10b5568.woff",
     "static/media/background.png": "/cat-feeding/static/media/background.d6f07f8ed5f5049a96ce.png",
     "index.html": "/cat-feeding/index.html",
-    "main.4a8f3747.css.map": "/cat-feeding/static/css/main.4a8f3747.css.map",
+    "main.58c84c8d.css.map": "/cat-feeding/static/css/main.58c84c8d.css.map",
     "main.1c7ffa7f.js.map": "/cat-feeding/static/js/main.1c7ffa7f.js.map"
   },
   "entrypoints": [
-    "static/css/main.4a8f3747.css",
+    "static/css/main.58c84c8d.css",
     "static/js/main.1c7ffa7f.js"
   ]
 }
