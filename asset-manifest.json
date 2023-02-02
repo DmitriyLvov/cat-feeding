@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/cat-feeding/static/css/main.4a8f3747.css",
+    "main.js": "/cat-feeding/static/js/main.1c7ffa7f.js",
+    "static/media/Photo.png": "/cat-feeding/static/media/Photo.6ead120b12513b247c0f.png",
+    "static/media/Exo20-Thin.woff": "/cat-feeding/static/media/Exo20-Thin.99a2d5ccf998c10b5568.woff",
+    "static/media/background.png": "/cat-feeding/static/media/background.d6f07f8ed5f5049a96ce.png",
+    "index.html": "/cat-feeding/index.html",
+    "main.4a8f3747.css.map": "/cat-feeding/static/css/main.4a8f3747.css.map",
+    "main.1c7ffa7f.js.map": "/cat-feeding/static/js/main.1c7ffa7f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4a8f3747.css",
+    "static/js/main.1c7ffa7f.js"
+  ]
+}
