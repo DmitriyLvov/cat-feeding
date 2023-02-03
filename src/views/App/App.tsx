@@ -1,10 +1,12 @@
-import './App.css';
 import CatFeeder from '../CatFeeder/CatFeeder';
+import styles from './App.module.scss';
 
 function App() {
   return (
-    <div className='App'>
-      <CatFeeder />
+    <div className={styles.App}>
+      <div className={styles.shadow}>
+        <CatFeeder />
+      </div>
     </div>
   );
 }

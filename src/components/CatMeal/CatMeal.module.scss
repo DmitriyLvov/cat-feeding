@@ -1,25 +1,80 @@
+@import '/src/vendor/colors.scss';
+
+@keyframes default_background {
+  from {
+    background-color: $default_hover;
+  }
+  to {
+    background-color: $default;
+  }
+}
+
+@keyframes hovered_default_background {
+  from {
+    background-color: $default;
+  }
+  to {
+    background-color: $default_hover;
+  }
+}
+
+@keyframes selected_background {
+  from {
+    background-color: $selected_hover;
+  }
+  to {
+    background-color: $selected;
+  }
+}
+
+@keyframes hovered_selected_background {
+  from {
+    background-color: $selected;
+  }
+  to {
+    background-color: $selected_hover;
+  }
+}
+
+@keyframes hovered_selected_link_background {
+  from {
+    color: $default;
+    border-bottom: 1px dotted $default;
+  }
+  to {
+    color: $default_hover;
+    border-bottom: 1px dotted $default_hover;
+  }
+}
+
 .component {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 510px;
 }
 
 .border {
   width: 320px;
   position: relative;
   height: 480px;
-  background-color: #1698d9;
   border-radius: 12px;
   clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px);
-}
-
-.border_selected {
-  background-color: #d91667;
-}
-
-.border_outOfStock {
-  background-color: #b3b3b3;
+  cursor: pointer;
+  &_default {
+    @extend .border;
+    animation: default_background 0.2s linear forwards;
+  }
+  &_selected {
+    @extend .border;
+    animation: selected_background 0.2s linear forwards;
+  }
+  &_outOfStock {
+    @extend .border;
+    background-color: $outOfStock;
+    cursor: default;
+  }
 }
 
 .main {
@@ -36,72 +91,98 @@
 .headerDescription {
   padding: 17px 0 0;
   margin: 0;
-  font: 800 18px/1.16 "Trebuchet MS", Helvetica, sans-serif;
+  font: 400 16px/19px 'Trebuchet MS', Helvetica, sans-serif;
   color: #666;
+  &_outOfStock {
+    @extend .headerDescription;
+    color: $outOfStock;
+  }
+  &_hoverSelected {
+    @extend .headerDescription;
+    color: $selected_hover;
+  }
 }
 
 .header {
   padding: 0;
   margin: 5px 0 0;
-  font: 700 48px/56px "Trebuchet MS", Helvetica, sans-serif;
+  font: 700 48px/56px 'Trebuchet MS', Helvetica, sans-serif;
+  &_outOfStock {
+    @extend .header;
+    color: $outOfStock;
+  }
+}
+
+.cardContent {
+  width: calc(100% - 40px);
+  margin-left: 44px;
+  text-align: left;
 }
 
 .type {
   padding: 0;
-  margin: -3px 0 0;
+  margin: 0 0 0 3px;
   text-align: left;
   width: fit-content;
-  font: 700 24px/28px "Trebuchet MS", Helvetica, sans-serif;
+  font: 700 24px/28px 'Trebuchet MS', Helvetica, sans-serif;
+  &_outOfStock {
+    @extend .type;
+    color: $outOfStock;
+  }
 }
 
-.volume, .mices{
-  font: 400 14px/16px "Trebuchet MS", Helvetica, sans-serif;
-  margin: 0;
-  padding: 0;
-  color: #666;
-}
-
-.volume{
+.descriptionField {
   margin-top: 15px;
 }
 
-.textField {
-  width: calc(100% - 40px);
-  margin-left: 40px;
-  text-align: left;
+.descriptionText {
+  font: 400 14px/16px 'Trebuchet MS', Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #666;
+  &_outOfStock {
+    @extend .descriptionText;
+    color: $outOfStock;
+  }
+}
+
+.descriptionNumber {
+  font-weight: 700;
 }
 
 .weight {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background-color: #2ea8e6;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   color: #fff;
-  font-size: 42px;
-  line-height: 0.9;
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  bottom: 12px;
+  right: 12px;
   padding: 0;
   margin: 0;
   z-index: 3;
-}
-
-.weight_selected {
-  background-color: #d91667;
-}
-
-.weight_outOfStock {
-  background-color: #b3b3b3;
+  font: 400 42px/0.9 'Trebuchet MS', Helvetica, sans-serif;
+  &_default {
+    @extend .weight;
+    animation: default_background 0.2s linear forwards;
+  }
+  &_selected {
+    @extend .weight;
+    animation: selected_background 0.2s linear forwards;
+  }
+  &_outOfStock {
+    @extend .weight;
+    background-color: $outOfStock;
+  }
 }
 
 .weightMeasure {
-  font-size: 21px;
+  font: 400 21px/22px 'Trebuchet MS', Helvetica, sans-serif;
 }
 
 .cat {
@@ -109,28 +190,54 @@
   bottom: 0px;
   left: 0px;
   border-radius: 10px;
-}
-
-.cat_outOfStock {
-  opacity: 0.5;
+  &_outOfStock {
+    @extend .cat;
+    opacity: 0.5;
+  }
 }
 
 .buyHook {
+  margin: 0;
+  padding: 0;
   position: absolute;
   color: #fff;
-  bottom: -34px;
-  margin: 0;
-  font: 700 13px/15px "Trebuchet MS", Helvetica, sans-serif;
-}
-
-.buyHook_outOfStock {
-  color: #ff6;
+  bottom: 0px;
+  text-align: center;
+  font: 400 13px/15px 'Trebuchet MS', Helvetica, sans-serif;
+  width: 320px;
+  &_outOfStock {
+    @extend .buyHook;
+    color: #ff6;
+  }
 }
 
 .link {
   background-color: rgba(0, 0, 0, 0);
-  color: #1698d9;
+  margin: 0;
+  width: 28px;
+  padding: 0;
+  color: $default;
   border: none;
   cursor: pointer;
-  text-decoration: dotted;
+  border-bottom: 1px dotted $default;
+  line-height: 0.9;
+  font-weight: 700;
+}
+
+.border_default:hover {
+  animation: hovered_default_background 0.2s linear forwards;
+  .weight_default {
+    animation: hovered_default_background 0.2s linear forwards;
+  }
+}
+
+.component:hover .link {
+  animation: hovered_selected_link_background 0.2s linear forwards;
+}
+
+.border_selected:hover {
+  animation: hovered_selected_background 0.2s linear forwards;
+  .weight {
+    animation: hovered_selected_background 0.2s linear forwards;
+  }
 }

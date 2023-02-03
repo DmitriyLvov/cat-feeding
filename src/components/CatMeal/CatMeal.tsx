@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import styles from './CatMeal.module.scss';
 import cat from './Photo.png';
@@ -11,34 +11,18 @@ export interface IFeed {
   isEnough: boolean;
   isOutOfStock: boolean;
   id: string;
+  selected: string;
 }
 
-interface ICatProps {
+interface ICatMealProps {
   feed: IFeed;
 }
-
-const CatMeal = ({ feed }: ICatProps) => {
+const CatMeal = ({ feed }: ICatMealProps) => {
   const [isSelected, setIsSelected] = useState(false);
   const [isMouseHover, setIsMouseHover] = useState(false);
-  const [selectTrigger, setSelectTrigger] = useState(false);
-  const { type, volume, mices, weight, isOutOfStock } = feed;
+  const { type, volume, mices, weight, isOutOfStock, selected, isEnough } = feed;
 
-  useEffect(() => {
-    // Карточка выбрана и курсор уходит за пределы
-    if (selectTrigger && !isMouseHover) {
-      setIsSelected(true);
-    }
-    // Отмена выбора карточки
-    if (isSelected && !selectTrigger) {
-      setIsSelected(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMouseHover, selectTrigger]);
-
-  const getTemplateText = (
-    qty: number,
-    wordVariations: [string, string, string]
-  ) => {
+  const getTemplateText = (qty: number, wordVariations: [string, string, string]) => {
     if (qty === 1) {
       return wordVariations[0];
     }
@@ -64,80 +48,98 @@ const CatMeal = ({ feed }: ICatProps) => {
   };
 
   const getPortionText = (volume: number) => {
-    return `${volume} ${getTemplateText(volume, [
-      'порция',
-      'порции',
-      'порций',
-    ])}`;
+    return `${getTemplateText(volume, ['порция', 'порции', 'порций'])}`;
   };
 
   const getMouseText = (volume: number) => {
     if (volume === 1) {
       return 'мышь в подарок';
     }
-    return `${volume} ${getTemplateText(volume, [
-      'мышь',
-      'мыши',
-      'мышей',
-    ])} в подарок`;
+    return `${getTemplateText(volume, ['мышь', 'мыши', 'мышей'])} в подарок`;
   };
 
   const selectFood = () => {
-    setSelectTrigger((prevState) => !prevState);
+    setIsSelected((prevState) => !prevState);
+    // Принудительно отключаем фиксацию наведения мыши, чтобы эффекты сработали только после возвращения
+    setIsMouseHover(false);
   };
 
-  const onHoverHandler = () => {
-    setIsMouseHover((prevState) => !prevState);
+  const onHoverEnterHandler = () => {
+    setIsMouseHover(true);
+  };
+  const onHoverLeaveHandler = () => {
+    setIsMouseHover(false);
   };
 
   return (
     <div className={styles.component}>
       <div
-        className={`${styles.border} ${isSelected && styles.border_selected} ${
-          isOutOfStock && styles.border_outOfStock
-        }`}
-        onMouseEnter={onHoverHandler}
-        onMouseLeave={onHoverHandler}
+        className={
+          isOutOfStock
+            ? styles.border_outOfStock
+            : isSelected
+            ? styles.border_selected
+            : styles.border_default
+        }
+        onMouseEnter={onHoverEnterHandler}
+        onMouseLeave={onHoverLeaveHandler}
       >
         <div className={styles.main} onClick={selectFood}>
-          <div className={styles.textField}>
-            <></>
-            <p className={styles.headerDescription}>
-              Сказочное заморское яство
-            </p>
-            <h2 className={styles.header}>Нямушка</h2>
-            <p className={styles.type}>{type}</p>
-            <p className={styles.volume}>{getPortionText(volume)}</p>
-            <p className={styles.mices}>{getMouseText(mices)}</p>
+          <div className={styles.cardContent}>
+            {isMouseHover && isSelected && !isOutOfStock ? (
+              <p className={styles.headerDescription_hoverSelected}>Котэ не одобряет?</p>
+            ) : (
+              <p className={isOutOfStock ? styles.headerDescription_outOfStock : styles.headerDescription}>
+                Сказочное заморское яство
+              </p>
+            )}
+            <h2 className={isOutOfStock ? styles.header_outOfStock : styles.header}>Нямушка</h2>
+            <p className={isOutOfStock ? styles.type_outOfStock : styles.type}>{type}</p>
+            <div className={styles.descriptionField}>
+              <p className={isOutOfStock ? styles.descriptionText_outOfStock : styles.descriptionText}>
+                <span className={styles.descriptionNumber}>{volume}</span> {getPortionText(volume)}
+              </p>
+              <p className={isOutOfStock ? styles.descriptionText_outOfStock : styles.descriptionText}>
+                {mices !== 1 && <span className={styles.descriptionNumber}>{`${mices} `}</span>}
+                {getMouseText(mices)}
+              </p>
+              {isEnough && (
+                <p className={isOutOfStock ? styles.descriptionText_outOfStock : styles.descriptionText}>
+                  заказчик доволен
+                </p>
+              )}
+            </div>
             <p
-              className={`${styles.weight} ${
-                isSelected && styles.weight_selected
-              } ${isOutOfStock && styles.weight_outOfStock}`}
+              className={
+                isOutOfStock
+                  ? styles.weight_outOfStock
+                  : isSelected
+                  ? styles.weight_selected
+                  : styles.weight_default
+              }
             >
               <span>{weight}</span>
               <span className={styles.weightMeasure}>кг</span>
             </p>
-            <img
-              className={`${styles.cat} ${
-                isOutOfStock && styles.cat_outOfStock
-              }`}
-              src={cat}
-              alt='cat'
-            />
+            <img className={isOutOfStock ? styles.cat_outOfStock : styles.cat} src={cat} alt="cat" />
           </div>
         </div>
       </div>
       {isOutOfStock ? (
-        <p
-          className={`${styles.buyHook} ${styles.buyHook_outOfStock}`}
-        >{`Печалька, ${type} закончился.`}</p>
+        <p className={styles.buyHook_outOfStock}>{`Печалька, ${type} закончился.`}</p>
       ) : (
-        <p className={styles.buyHook}>
-          Чего сидишь? Порадуй котэ,
-          <button type='button' className={styles.link} onClick={selectFood}>
-            купи.
-          </button>
-        </p>
+        <>
+          {isSelected ? (
+            <p className={styles.buyHook}>{selected}</p>
+          ) : (
+            <p className={styles.buyHook}>
+              {`Чего сидишь? Порадуй котэ, `}
+              <button type="button" className={styles.link} onClick={selectFood}>
+                купи.
+              </button>
+            </p>
+          )}
+        </>
       )}
     </div>
   );

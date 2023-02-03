@@ -1,21 +1,31 @@
-.root {
-  background-image: url('./background.png');
+.component {
   width: 100%;
-  min-height: 95vh;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header {
   color: #fff;
-  padding: 36px 0 24px;
+  margin: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   font: 100 36px/44px 'Exo20';
-  // font: 36px/44px
-  // font-family:''
+  padding: 0 10px;
 }
 
 .body {
-  padding: 20px;
+  margin: 20px;
   display: flex;
   gap: 80px;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+@media screen and (max-width: 380px) {
+  .body {
+    margin: 20px 0;
+  }
 }
